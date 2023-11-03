@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="../images/davocom_favicon.png"
+      type="image/x-icon"
+    />
+    <title>Log In</title>
+  </head>
+  <body>
+    <div class="auth_container">
+      <div class="auth_container_child">
+        <!-- sign_up page start here -->
+        <header class="auth_header">
+          <!--  -->
+          <a class="back_to_home" href="index.html"
+            ><i class="fa fa-arrow-left"></i>
+            <p>Back To Store</p></a
+          >
+          <!--  -->
+          <a class="reload_logo" href="log_in.html">
+            <div class="auth_logo">
+              <img src="../images/auth_logo.png" alt="" />
+            </div>
+          </a>
+          <!--  -->
+        </header>
+        <!--  -->
+        <main class="auth_main">
+          <!--  -->
+          <div class="auth_main_child">
+            <!--  -->
+            <h2>LOG IN</h2>
+            <!--  -->
+            <p>
+              Already have an account? log in now to enjoy all our sweet deals
+              at a cheap rate
+            </p>
+            <!--  -->
+            <div class="sign_up_email">
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                class="input email"
+              />
+              <!--  -->
+              <p class="email_error_message error">
+                Looks like the email is not valid
+              </p>
+              <!--  -->
+            </div>
+            <!--  -->
+            <div class="sign_up_password">
+              <!--  -->
+              <div class="password_area">
+                <!--  -->
+                <input
+                  type="password"
+                  placeholder="Password"
+                  class="password"
+                />
+                <!--  -->
+                <div class="show_ps_word_icon">
+                  <p class="show_ps_word"><i class="fa fa-eye-slash"></i></p>
+                  <p class="hide_ps_word"><i class="fa fa-eye"></i></p>
+                </div>
+                <!--  -->
+              </div>
+              <!--  -->
+              <p class="password_error_message error">
+                Wrong password, please check and input the correct password
+              </p>
+              <!--  -->
+            </div>
+            <!--  -->
+            <div class="log_in_buttons">
+              <!--  -->
+              <button class="log_in_button auth_button">Log In</button>
+              <!--  -->
+            </div>
+            <!--  -->
+            <p class="have_account">
+              Do not have account?
+              <a href="sign_up.html">Sign Up</a>
+            </p>
+            <!--  -->
+            <div class="user_existing_overlay_modal">
+              <div class="existing_account">
+                <p>Looks Like You Don't Have An Account</p>
+                <a href="sign_up.html">Log In</a>
+              </div>
+            </div>
+          </div>
+        </main>
+        <!-- log_in ends here -->
+      </div>
+    </div>
+  </body>
+</html>
