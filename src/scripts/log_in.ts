@@ -84,6 +84,9 @@ const passwordChecks: Function = (): boolean => {
     return true;
   }
 };
+
+console.log();
+
 //
 // handling password visibility
 const handleShowPasswordInput: EventListener = (): void => {
