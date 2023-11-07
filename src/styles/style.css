@@ -968,6 +968,7 @@ footer {
   border: 1px solid var(--primary_color);
   border-radius: var(--border-radius);
   padding: 3px 5px;
+  text-align: center;
 }
 
 .available {
@@ -1720,11 +1721,19 @@ footer {
 
 .user_profile_side_menu a,
 .order_history_side_menu a {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: var(--margin);
   padding: var(--input_padding);
   text-decoration: none;
   color: var(--primary_color);
+}
+
+.user_profile_side_menu a i,
+.order_history_side_menu a i {
+  color: var(--secondary_color_three);
+  font-size: larger;
 }
 
 .user_profile {
@@ -1852,10 +1861,65 @@ footer {
   display: none;
 }
 
-.order_history_section_three {
+.clear_history_warning_overlay {
+  visibility: hidden;
+  position: absolute;
+  height: 100%;
+  place-items: center;
+  border-radius: var(--border-radius);
+}
+
+.clear_history_warning_overlay_second_style {
+  background: rgba(186, 186, 186, 0.699);
+  position: absolute;
+  height: 100%;
+  place-items: center;
+  border-radius: var(--border-radius);
+  visibility: visible;
+}
+
+.clear_history_warning_overlay_second_style .clear_history_warning {
+  width: 95%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 7px;
+  padding: var(--padding);
+  text-align: center;
+  border-radius: var(--border-radius);
+  background: var(--default_color);
+  color: var(--primary_color);
+}
+
+.clear_history_warning_overlay_second_style .clear_history_warning div {
+  text-align: right;
+  color: var(--secondary_color);
+}
+
+.clear_history_warning_overlay_second_style .clear_history_warning div i {
+  font-size: 20px;
+}
+
+.clear_history_warning_overlay_second_style .order_history_section_three {
   display: grid;
   gap: var(--gap);
 }
+
+.clear_history_warning_overlay_second_style .clear_history_warning a {
+  width: 90%;
+  margin: auto;
+  padding: var(--padding);
+  border-radius: var(--border-radius);
+  background: var(--secondary_color_three);
+  color: var(--default_color);
+  font-size: larger;
+  font-weight: bolder;
+  border: none;
+  outline: none;
+  text-decoration: none;
+}
+
 /* order history page style ends here */
 /*  */
 /* Mobile Ends here */

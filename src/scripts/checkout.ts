@@ -4,12 +4,14 @@ import "../assets/images/davocom_logo.png";
 import "../assets/images/dhl-express (1).png";
 import "../assets/images/ups.png";
 import "font-awesome/css/font-awesome.css";
-import { storedIsLoggedIn, userInfo } from "./gettingUserFromLocalStorage";
 import {
   ICartproduct,
   ISearchedProduct,
   IUserPhoneAndAddress,
 } from "./interface";
+import { displaySearchedProducts } from "./displaySearchFunction";
+import { userAccount } from "./displayingUserAccountInformation";
+import { handleLogOut } from "./handleLogOut";
 
 //
 // getting the html elements to work with
@@ -93,58 +95,6 @@ let orderHistoryProducts: ICartproduct[] =
 
 //
 // template literals
-const displaySearchedProducts: Function = () => {
-  const matchingProducts = products.filter(
-    (product) =>
-      product.title.toLowerCase() === getSearchInput ||
-      product.brand.toLowerCase() === getSearchInput ||
-      product.category.toLowerCase() === getSearchInput
-  );
-
-  if (matchingProducts.length > 0) {
-    let showSearchProducts = "";
-
-    matchingProducts.forEach((product) => {
-      showSearchProducts += `
-        <a href="product_details.html"  class="product_card" id="${product.id}">
-          <!--  -->
-          <div class="product_image">
-            <img src="${product.images[0]}" alt="" />
-          </div>
-          <!--  -->
-          <div class="product_info">
-            <h4  class="product_name">${product.title}</h4>
-            <div class="card_price">
-              <p class="card_bold">$${product.price.toLocaleString()}</p>
-              <p class="card_line_through">$${parseFloat(
-                (
-                  (product.price * product.discountPercentage) / 100 +
-                  product.price
-                ).toFixed(2)
-              ).toLocaleString()}</p>
-            </div>
-          </div>
-          <!--  -->
-        </a>
-      `;
-    });
-
-    searchedItemsContainerElem.innerHTML = showSearchProducts;
-
-    const productCards = document.querySelectorAll(".product_card");
-    //
-    productCards.forEach((productCard) => {
-      productCard.addEventListener("click", () => {
-        //
-        const productId = productCard.id;
-        localStorage.setItem("productId", JSON.stringify(productId));
-        //
-      });
-    });
-  } else {
-    searchedItemsContainerElem.innerHTML = `<p class="if_not_available">Oops! product not available</p>`;
-  }
-};
 //
 const displayCheckOutProduct: Function = () => {
   let showCheckOutProduct = "";
@@ -246,7 +196,11 @@ const handleGetProductFromApi: Function = async () => {
     const data = await res.json();
     products = data.products;
     //
-    displaySearchedProducts();
+    displaySearchedProducts(
+      products,
+      getSearchInput,
+      searchedItemsContainerElem
+    );
   } catch (error) {
     console.log(error);
   }
@@ -254,27 +208,15 @@ const handleGetProductFromApi: Function = async () => {
 
 //
 // if the user have an account or not have an account
-const userAccount: Function = () => {
-  if (storedIsLoggedIn !== null && storedIsLoggedIn === true) {
-    userHasAccount.setAttribute("id", "have_an_account_name");
-    userHasAccount.innerText = `Hi, ${userInfo.firstName
-      .slice(0, 3)
-      .toUpperCase()}`;
-    noUserAccount.setAttribute("class", "when_user_logged_in");
-    userAccountSignUp.setAttribute("class", "when_user_logged_in");
-    userAccountSignIn.setAttribute("class", "when_user_logged_in");
-    userAccountLogOut.setAttribute("class", "when_user_logged_out");
-  }
-};
-userAccount();
+userAccount(
+  userHasAccount,
+  noUserAccount,
+  userAccountSignUp,
+  userAccountSignIn,
+  userAccountLogOut
+);
 
-//
-// set storedIsLoggedIn to false when clicked
-const handleLogOut: EventListener = (): void => {
-  let isLoggedIn = false;
-  //
-  localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
-};
+
 
 // cart icon total
 if (cartProduct.length > 0 || !cartProduct) {

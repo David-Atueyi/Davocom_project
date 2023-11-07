@@ -129,7 +129,7 @@
                 >
                 <!--  -->
                 <p class="user_account_log_out">
-                  <a href="user_profile.html">LOG OUT</a>
+                  <a>LOG OUT</a>
                 </p>
                 <!--  -->
               </div>
@@ -154,16 +154,23 @@
           <!--  -->
           <div class="order_history_container">
             <div class="order_history_side_menu">
-              <a href="user_profile.html">MY PROFILE</a>
-
               <a href="order_history.html">ORDER HISTORY</a>
+              
+              <a href="user_profile.html">MY PROFILE <i class="fa fa-angle-right"></i></a>
             </div>
             <div class="order_history">
               <h2>Order History</h2>
               <div class="history_items_container">
                <!--  -->
               </div>
-              <a href="" class="clear_history">Clear History</a>
+              <button  class="clear_history">Clear History</button>
+              <div class="clear_history_warning_overlay">
+                <div class="clear_history_warning">
+                  <div><i class="fa fa-times close_clearHistory_warning"></i></div>
+                  <p>Do you want to clear your order history? Please note if your order history is cleared product that was existing cannot be recovered</p>
+                  <a href="" class="warning_message_btn">OK</a>
+                </div>
+              </div>
             </div>
           </div>
           <!--  -->
