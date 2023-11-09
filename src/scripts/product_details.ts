@@ -166,6 +166,7 @@ const displayAProduct: Function = () => {
   );
 
   if (matchingProduct.length > 0) {
+    //
     let showProductImage: string = "";
     let showProductNameAndPrice: string = "";
     matchingProduct.forEach((product) => {
@@ -228,15 +229,13 @@ const displayAProduct: Function = () => {
               product.productId === newItem.productId &&
               product.productColor === newItem.productColor
           );
-
           if (existingProduct) {
             existingProduct.quantityOfProduct =
-              existingProduct.quantityOfProduct + Number(getUserQuantityInput);
+              existingProduct.quantityOfProduct = Number(getUserQuantityInput);
           } else {
             cartProduct.push(newItem);
           }
         }
-
         localStorage.setItem("cartProduct", JSON.stringify(cartProduct));
 
         if (cartProduct.length > 0 || !cartProduct) {
@@ -276,6 +275,14 @@ const displayAProduct: Function = () => {
     scrollContainer.innerHTML = showProductImage;
     productPriceAndNameContainerElem.innerHTML = showProductNameAndPrice;
   }
+  //
+  const existingProduct = cartProduct.find(
+    (product) => product.productId === Number(getProductIdFromLocalStorage)
+  );
+  existingProduct
+    ? (productQuantityElem.value = String(existingProduct.quantityOfProduct))
+    : null;
+  //
 };
 
 //
@@ -321,12 +328,12 @@ const handleGetProductFromApi: Function = async () => {
     );
     loader.forEach((loader) => loader.setAttribute("class", "loader"));
     //
-     displaySearchedProducts(
-       products,
-       getSearchInput,
-       searchedItemsContainerElem
-     );
-     displayMostPopular(products, mostPopularContainerElem);
+    displaySearchedProducts(
+      products,
+      getSearchInput,
+      searchedItemsContainerElem
+    );
+    displayMostPopular(products, mostPopularContainerElem);
     displayYouMayAlsoLike();
     displayAProduct();
   } catch (error) {
@@ -346,8 +353,6 @@ userAccount(
   userAccountLogOut
 );
 
-
-
 //
 // callback function for product image slider
 // Function to slide the images left (backwards)
@@ -361,9 +366,16 @@ const slideForward: EventListener = () => {
 
 // handling the color of the product
 const handleProductColor: EventListener = (event) => {
+  //
   const clickedColor = event.target as HTMLAnchorElement;
   selectedColor = clickedColor.textContent;
   event.preventDefault();
+  //
+  productColorElem.forEach((selectedColor) => {
+    selectedColor.classList.remove("chosen_color");
+  });
+
+  clickedColor.classList.add("chosen_color");
 };
 // handling user quantity input
 const handleQuantityInput: EventListener = (event: Event): void => {
