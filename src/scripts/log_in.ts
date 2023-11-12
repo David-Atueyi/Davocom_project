@@ -85,7 +85,6 @@ const passwordChecks: Function = (): boolean => {
   }
 };
 
-console.log();
 
 //
 // handling password visibility

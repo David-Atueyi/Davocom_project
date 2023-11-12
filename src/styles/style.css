@@ -1011,13 +1011,15 @@ footer {
 
 .buynow button {
   width: 85%;
-  padding: 10px;
   background: var(--secondary_color_three);
-  border-radius: 5px;
   border: none;
+  border-radius: 5px;
 }
 
 .buynow button a {
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
   color: var(--default_color);
   font-size: 16px;
   font-weight: 600;

@@ -94,7 +94,7 @@ module.exports = {
       directory: path.join(__dirname, "dist"),
     },
     compress: true,
-    port: 8083,
+    port: 8080,
     open: true,
   },
 };

@@ -4,44 +4,26 @@ import "../assets/images/auth_logo.png";
 import "font-awesome/css/font-awesome.css";
 import { userInfo } from "./gettingUserFromLocalStorage";
 import { IUser } from "./interface";
+import { signUpDomElems } from "./signUp/signUpDomElements";
+import { handelInputChecks } from "./signUp/userInputChecks";
+import { handleShowPassword } from "./signUp/handleShowPassword";
 
 //
 // getting the html elements to work with
-const fnameInputElem = document.querySelector<HTMLInputElement>(".fname");
-const fnameErrorMegElem = document.querySelector<HTMLParagraphElement>(
-  ".fname_error_message"
-);
+const {
+  fnameInputElem,
+  fnameErrorMegElem,
+  lnameInputElem,
+  lnameErrorMegElem,
+  emailInputElem,
+  emailErrorMegElem,
+  passwordInputElem,
+  passwordErrorMegElem,
+  passwordInputContainerElem,
+  signUpButtonElem,
+  alreadyHaveAccountOverlayElem,
+} = signUpDomElems;
 //
-const lnameInputElem = document.querySelector<HTMLInputElement>(".lname");
-const lnameErrorMegElem = document.querySelector<HTMLParagraphElement>(
-  ".lname_error_message"
-);
-//
-const emailInputElem = document.querySelector<HTMLInputElement>(".email");
-const emailErrorMegElem = document.querySelector<HTMLParagraphElement>(
-  ".email_error_message"
-);
-//
-const passwordInputElem = document.querySelector<HTMLInputElement>(".password");
-const passwordErrorMegElem = document.querySelector<HTMLParagraphElement>(
-  ".password_error_message"
-);
-const showPasswordElem =
-  document.querySelector<HTMLParagraphElement>(".show_ps_word");
-const hidePasswordElem =
-  document.querySelector<HTMLParagraphElement>(".hide_ps_word");
-const passwordInputContainerElem =
-  document.querySelector<HTMLDivElement>(".password_area");
-//
-const signUpButtonElem =
-  document.querySelector<HTMLButtonElement>(".sign_up_button");
-  // 
-const alreadyHaveAccountOverlayElem = document.querySelector<HTMLDivElement>(
-  ".user_existing_overlay_modal"
-);
-//
-
-
 
 //
 //global variable
@@ -76,70 +58,18 @@ const handlePasswordInput: EventListener = (e: Event) => {
 };
 
 //
-// handling error message/validation checks
-const fnameChecks: Function = () => {
-  if (!fnameInputElem.value) {
-    fnameErrorMegElem.setAttribute("class", "show_error");
-    fnameInputElem.setAttribute("class", "error_border");
-  } else {
-    fnameErrorMegElem.setAttribute("class", "error");
-    fnameInputElem.setAttribute("class", "input");
-  }
-};
-//
-const lnameChecks: Function = () => {
-  if (!lnameInputElem.value) {
-    lnameErrorMegElem.setAttribute("class", "show_error");
-    lnameInputElem.setAttribute("class", "error_border");
-  } else {
-    lnameErrorMegElem.setAttribute("class", "error");
-    lnameInputElem.setAttribute("class", "input");
-  }
-};
-//
-const emailChecks: Function = () => {
-  if (!regex.test(emailInputElem.value)) {
-    emailErrorMegElem.setAttribute("class", "show_error");
-    emailInputElem.setAttribute("class", "error_border");
-  } else {
-    emailErrorMegElem.setAttribute("class", "error");
-    emailInputElem.setAttribute("class", "input");
-  }
-};
-//
-const passwordChecks: Function = () => {
-  if (!paWordRegex.test(passwordInputElem.value)) {
-    passwordErrorMegElem.setAttribute("class", "show_error");
-    passwordInputContainerElem.setAttribute(
-      "class",
-      "password_area_error_border "
-    );
-  } else {
-    passwordErrorMegElem.setAttribute("class", "error");
-    passwordInputContainerElem.setAttribute("class", "password_area");
-  }
-};
-
-//
 // handling password visibility
-const handleShowPasswordInput: EventListener = (): void => {
-  passwordInputElem.type = "text";
-  hidePasswordElem.classList.toggle("show_psWord");
-  showPasswordElem.classList.toggle("hide_psWord");
-};
-//
-const handleHidePasswordInput: EventListener = (): void => {
-  passwordInputElem.type = "password";
-  hidePasswordElem.classList.toggle("show_psWord");
-  showPasswordElem.classList.toggle("hide_psWord");
-};
+handleShowPassword();
 
 //
 // handling localStorage for user
 const handleLocalStorage: Function = () => {
   let isLoggedIn = false;
-  // 
-  if (userInfo === null) {
+
+  if (
+    userInfo === null ||
+    (userInfo.email !== getEmailInput && userInfo.password !== getPasswordInput)
+  ) {
     localStorage.setItem("user", JSON.stringify(user));
     window.location.href = "log_in.html";
     localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
@@ -152,25 +82,32 @@ const handleLocalStorage: Function = () => {
       "display_user_existing_overlay_modal"
     );
   } else {
-    localStorage.setItem("user", JSON.stringify(user));
-    window.location.href = "log_in.html";
-    localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
+    null;
   }
 };
 
 //
 // handle signup button
 const handleSignUpBtn: EventListener = (): void => {
-  fnameChecks();
-  lnameChecks();
-  emailChecks();
-  passwordChecks();
+  handelInputChecks({
+    fnameInputElem,
+    fnameErrorMegElem,
+    lnameInputElem,
+    lnameErrorMegElem,
+    regex,
+    emailInputElem,
+    emailErrorMegElem,
+    paWordRegex,
+    passwordInputElem,
+    passwordErrorMegElem,
+    passwordInputContainerElem,
+  });
   //
   if (
     fnameInputElem.value &&
     lnameInputElem.value &&
-    emailInputElem.value &&
-    passwordInputElem.value
+    regex.test(emailInputElem.value) &&
+    paWordRegex.test(passwordInputElem.value)
   ) {
     //
     user = {
@@ -181,7 +118,6 @@ const handleSignUpBtn: EventListener = (): void => {
     };
     //
     handleLocalStorage();
-    // 
     //
     fnameInputElem.value = "";
     lnameInputElem.value = "";
@@ -197,6 +133,4 @@ fnameInputElem?.addEventListener("change", handleFnameInput);
 lnameInputElem?.addEventListener("change", handleLnameInput);
 emailInputElem?.addEventListener("change", handleEmailInput);
 passwordInputElem?.addEventListener("change", handlePasswordInput);
-showPasswordElem?.addEventListener("click", handleShowPasswordInput);
-hidePasswordElem?.addEventListener("click", handleHidePasswordInput);
 signUpButtonElem?.addEventListener("click", handleSignUpBtn);

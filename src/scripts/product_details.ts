@@ -3,107 +3,58 @@ import "../assets/images/davocom_favicon.png";
 import "../assets/images/davocom_logo.png";
 import "font-awesome/css/font-awesome.css";
 import { ICartproduct, ISearchedProduct } from "./interface";
-import { displaySearchedProducts } from "./displaySearchFunction";
 import { userAccount } from "./displayingUserAccountInformation";
 import { handleLogOut } from "./handleLogOut";
 import { displayMostPopular } from "./displayMostPopular";
-
+import "./handleRedirectingIfUserNotLoggedIn";
+import { handleCartIcon } from "./cartIcon";
+import { productCardSlider } from "./slideCardSlider";
+import { ProductDetailsHtmlElements } from "./productDetails/productDetailsDomElements";
+import { displayYouMayAlsoLike } from "./displayYouMayAlsoLike";
+import { searchProductAndFetchApi } from "./searchAndFetchFromApi";
+import { productImageSlide } from "./productDetails/productImageSlide";
 //
 // getting the html elements to work with
-const searchBarContainer = document.querySelector<HTMLFormElement>(
-  ".search_bar_container"
-);
-
-const searchBarInputElem = document.querySelector<HTMLInputElement>("#search");
-
-const searchSectionContainer = document.querySelector<HTMLDivElement>(
-  ".searched_container"
-);
-const closeSearchSection = document.querySelector<HTMLElement>(
-  ".close_search_section"
-);
-
-const searchedItemsContainerElem =
-  document.querySelector<HTMLDivElement>(".search_items");
-//
-const noUserAccount = document.querySelector<HTMLParagraphElement>(
-  ".do_not_have_account"
-);
-const userHasAccount =
-  document.querySelector<HTMLParagraphElement>(".have_an_account");
-const userAccountSignIn = document.querySelector<HTMLParagraphElement>(
-  ".user_account_sign_in"
-);
-
-const userAccountSignUp = document.querySelector<HTMLParagraphElement>(
-  ".user_account_sign_up"
-);
-
-const userAccountLogOut = document.querySelector<HTMLParagraphElement>(
-  ".user_account_log_out"
-);
-//
-const cartTotal = document.querySelector<HTMLParagraphElement>(".cart_total");
-//
-// js for the main
-const mostPopularContainerElem =
-  document.querySelector<HTMLDivElement>(".most_popular");
-//
-const youMayAlsoLikeContainerElem =
-  document.querySelector<HTMLDivElement>(".you_may_also_like");
-//
-// images scroll images
-const scrollContainer = document.querySelector<HTMLDivElement>(
-  ".product_image_container"
-);
-const productImageControlContainerElem = document.querySelector<HTMLDivElement>(
-  ".controls_container"
-);
-const prevButton = document.querySelector<HTMLElement>(".prev_btn");
-const nextButton = document.querySelector<HTMLElement>(".next_btn");
-//
-// product description
-const productPriceAndNameContainerElem = document.querySelector<HTMLDivElement>(
-  ".product_name_price"
-);
-const productVariation = document.querySelector<HTMLDivElement>(".available");
-const productBrand = document.querySelector<HTMLSpanElement>(".product_brand");
-//
-const productOverView =
-  document.querySelector<HTMLParagraphElement>(".overview_content");
-//
-const productDescription = document.querySelector<HTMLParagraphElement>(
-  ".description_content"
-);
-//
-const productColorElem =
-  document.querySelectorAll<HTMLAnchorElement>(".product_color");
-const productQuantityElem =
-  document.querySelector<HTMLInputElement>("#quantity");
-const buyNowBtnElem = document.querySelector<HTMLButtonElement>(".buynow_btn");
-const cartButtonElem = document.querySelector<HTMLAnchorElement>(".cart_btn");
-//
-// card sliders
-const loader = document.querySelectorAll<HTMLDivElement>(".loader");
-const controlsContainerElem =
-  document.querySelectorAll<HTMLDivElement>(".slide_control");
-const preButtons = document.querySelectorAll<HTMLElement>(".pre_btn");
-const nxtButtons = document.querySelectorAll<HTMLElement>(".nxt_btn");
-const productContainers =
-  document.querySelectorAll<HTMLDivElement>(".product_container");
+const {
+  searchBarContainer,
+  searchBarInputElem,
+  searchSectionContainer,
+  closeSearchSection,
+  searchedItemsContainerElem,
+  noUserAccount,
+  userHasAccount,
+  userAccountSignIn,
+  userAccountSignUp,
+  userAccountLogOut,
+  cartTotal,
+  mostPopularContainerElem,
+  youMayAlsoLikeContainerElem,
+  scrollContainer,
+  productImageControlContainerElem,
+  productPriceAndNameContainerElem,
+  productVariation,
+  productBrand,
+  productOverView,
+  productDescription,
+  productColorElem,
+  productQuantityElem,
+  buyNowBtnElem,
+  cartButtonElem,
+  loader,
+  controlsContainerElem,
+  preButtons,
+  nxtButtons,
+  productContainers,
+} = ProductDetailsHtmlElements;
 
 //
 // global variable
-let getSearchInput: string;
 let products: ISearchedProduct[];
 let cartProduct: ICartproduct[] =
   JSON.parse(localStorage.getItem("cartProduct")) || [];
 let checkOutProduct: ICartproduct[] = [];
 //
-if (cartProduct.length > 0 || !cartProduct) {
-  cartTotal.setAttribute("class", "cart_total_second_style");
-  cartTotal.innerHTML = cartProduct.length.toString();
-}
+handleCartIcon({ cartTotal });
 //
 let selectedColor: string;
 let getUserQuantityInput: string = productQuantityElem.value;
@@ -113,52 +64,6 @@ const getProductIdFromLocalStorage = JSON.parse(
 
 //
 //template literal
-//
-const displayYouMayAlsoLike: Function = () => {
-  let showYouMayAlsoLikeProduct: string = "";
-
-  products.slice(15, 30).forEach((product) => {
-    showYouMayAlsoLikeProduct += `
-     <a href="product_details.html" class="product_card" id="${product.id}">
-                  <!--  -->
-                  <div class="product_image">
-                    <span class="discount_tag">${
-                      product.discountPercentage
-                    }%</span>
-                    <img src="${product.images[0]}" alt="" />
-                  </div>
-                  <!--  -->
-                  <div class="product_info">
-                    <h4 class="product_name">${product.title}</h4>
-                    <!--  -->
-                    <div class="card_price">
-                      <span class="current_price">$${product.price.toLocaleString()}</span>
-                      <span class="pre_price card_line_through">$${parseFloat(
-                        (
-                          (product.price * product.discountPercentage) / 100 +
-                          product.price
-                        ).toFixed(2)
-                      ).toLocaleString()}</span>
-                    </div>
-                  </div>
-                  <!--  -->
-                </a>         
-    `;
-  });
-
-  youMayAlsoLikeContainerElem.innerHTML = showYouMayAlsoLikeProduct;
-
-  const productCards = document.querySelectorAll(".product_card");
-  //
-  productCards.forEach((productCard) => {
-    productCard.addEventListener("click", () => {
-      //
-      const productId = productCard.id;
-      localStorage.setItem("productId", JSON.stringify(productId));
-      //
-    });
-  });
-};
 //
 const displayAProduct: Function = () => {
   let matchingProduct = products.filter(
@@ -285,32 +190,15 @@ const displayAProduct: Function = () => {
   //
 };
 
-//
 // handle search bar
-const handleSearchBar: EventListener = (e: Event): void => {
-  e.preventDefault();
-  getSearchInput
-    ? searchSectionContainer.setAttribute(
-        "class",
-        "searched_container_second_style"
-      )
-    : searchSectionContainer.setAttribute("class", "searched_container");
-  handleGetProductFromApi();
-};
-
-//
-// handle getting of user input
-const handleSearchBarInput: EventListener = (e: Event): void => {
-  const searchInput = e.target as HTMLInputElement;
-  getSearchInput = searchInput.value.toLowerCase();
-};
-
-//
-// closing of the search section when the x icon is clicked
-const handleClosingSearchSection: EventListener = (): void => {
-  searchSectionContainer.setAttribute("class", "closing_search_section");
-};
-
+searchProductAndFetchApi({
+  products,
+  searchBarContainer,
+  searchBarInputElem,
+  searchSectionContainer,
+  closeSearchSection,
+  searchedItemsContainerElem,
+});
 //
 // getting product from API
 const handleGetProductFromApi: Function = async () => {
@@ -328,13 +216,8 @@ const handleGetProductFromApi: Function = async () => {
     );
     loader.forEach((loader) => loader.setAttribute("class", "loader"));
     //
-    displaySearchedProducts(
-      products,
-      getSearchInput,
-      searchedItemsContainerElem
-    );
     displayMostPopular(products, mostPopularContainerElem);
-    displayYouMayAlsoLike();
+    displayYouMayAlsoLike(products, youMayAlsoLikeContainerElem);
     displayAProduct();
   } catch (error) {
     console.log(error);
@@ -355,14 +238,7 @@ userAccount(
 
 //
 // callback function for product image slider
-// Function to slide the images left (backwards)
-const slideBackward: EventListener = () => {
-  scrollContainer.scrollLeft -= 300;
-};
-// Function to slide the images right (forwards)
-const slideForward: EventListener = () => {
-  scrollContainer.scrollLeft += 300;
-};
+productImageSlide(scrollContainer);
 
 // handling the color of the product
 const handleProductColor: EventListener = (event) => {
@@ -385,40 +261,14 @@ const handleQuantityInput: EventListener = (event: Event): void => {
 
 //
 //card Sliders forward and backward button call backFunction
-const handlePreButton = (container: HTMLDivElement) => () => {
-  container.scrollBy({ left: -300, behavior: "smooth" });
-};
-
-const handleNxtButton = (container: HTMLDivElement) => () => {
-  container.scrollBy({ left: 300, behavior: "smooth" });
-};
+productCardSlider({preButtons, productContainers, nxtButtons});
 
 //
 // adding event listeners
-searchBarContainer.addEventListener("submit", handleSearchBar);
-searchBarInputElem.addEventListener("change", handleSearchBarInput);
-closeSearchSection.addEventListener("click", handleClosingSearchSection);
 userAccountLogOut.addEventListener("click", handleLogOut);
 productColorElem.forEach((color) => {
   color.addEventListener("click", handleProductColor);
 });
 productQuantityElem.addEventListener("change", handleQuantityInput);
 
-//
-// event listeners for product images
-// Add click event listeners to the prev and next buttons
-prevButton.addEventListener("click", slideBackward);
-nextButton.addEventListener("click", slideForward);
 
-//
-// Add event listeners to all pre_btn and nxt_btn elements
-for (let i = 0; i < preButtons.length; i++) {
-  preButtons[i].addEventListener(
-    "click",
-    handlePreButton(productContainers[i])
-  );
-  nxtButtons[i].addEventListener(
-    "click",
-    handleNxtButton(productContainers[i])
-  );
-}
