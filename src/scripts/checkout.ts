@@ -1,8 +1,15 @@
 import { IUserPhoneAndAddress } from "./interface";
 import { checkOutHtmlElems } from "./checkoutPage/checkOutHtmlElements";
-import { checkOutImports } from "./checkOutImports";
+import { checkOutImports } from "./checkoutPage/checkOutImports";
 import { handleCalculatingOfCartTotal } from "./checkoutPage/calculatingCheckOutTotal";
-import { getAddressInput, getEmailInput, getFnmaeInput, getLnameInput, getPhoneInput, handleUserCheckOutInputs } from "./checkoutPage/userCheckOutInputs";
+import {
+  getAddressInput,
+  getEmailInput,
+  getFnmaeInput,
+  getLnameInput,
+  getPhoneInput,
+  handleUserCheckOutInputs,
+} from "./checkoutPage/userCheckOutInputs";
 // checkOutImports
 const {
   userAccount,

@@ -1,5 +1,5 @@
 import { homePageDomElems } from "./home/homePageDomElement";
-import { homePageImports } from "./homePageImport";
+import { homePageImports } from "./home/homePageImport";
 import { heroImageSliderFunction } from "./home/handleHeroImageSlider";
 import "./handleRedirectingIfUserNotLoggedIn";
 import { handleCartIcon } from "./cartIcon";
@@ -37,7 +37,7 @@ const {
   productContainers,
 } = homePageDomElems;
 
-// 
+//
 // global variable
 let products: ISearchedProduct[];
 
@@ -52,36 +52,36 @@ searchProductAndFetchApi({
   searchedItemsContainerElem,
 });
 
- //
-  // getting product from API
-  const handleGetProductFromApi: Function = async () => {
-    loader.forEach((loader) =>
-      loader.setAttribute("class", "loader_second_style")
+//
+// getting product from API
+const handleGetProductFromApi: Function = async () => {
+  loader.forEach((loader) =>
+    loader.setAttribute("class", "loader_second_style")
+  );
+  try {
+    const res = await fetch(`https://dummyjson.com/products`);
+    const data = await res.json();
+    products = data.products;
+    //
+    controlsContainerElem.forEach((controlContainer) =>
+      controlContainer.setAttribute("class", "slide_control_second_style")
     );
-    try {
-      const res = await fetch(`https://dummyjson.com/products`);
-      const data = await res.json();
-      products = data.products;
-      //
-      controlsContainerElem.forEach((controlContainer) =>
-        controlContainer.setAttribute("class", "slide_control_second_style")
-      );
-      loader.forEach((loader) => loader.setAttribute("class", "loader"));
-      //
-      showProducts({
-        products,
-        todayDealsContainerElem,
-        flashSalesContainerElem,
-        bestSellersContainerElem,
-        phonesAndLaptopsContainerElem,
-        cosmeticContainerElem,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    loader.forEach((loader) => loader.setAttribute("class", "loader"));
+    //
+    showProducts({
+      products,
+      todayDealsContainerElem,
+      flashSalesContainerElem,
+      bestSellersContainerElem,
+      phonesAndLaptopsContainerElem,
+      cosmeticContainerElem,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-  handleGetProductFromApi();
+handleGetProductFromApi();
 
 //
 // if the user have an account or not have an account
@@ -103,9 +103,8 @@ heroImageSliderFunction();
 
 //
 //card Sliders forward and backward button call backFunction
-productCardSlider({preButtons, productContainers, nxtButtons});
+productCardSlider({ preButtons, productContainers, nxtButtons });
 
 //
 // adding event listeners
 userAccountLogOut.addEventListener("click", handleLogOut);
-

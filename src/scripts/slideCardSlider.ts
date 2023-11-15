@@ -11,26 +11,25 @@ export const productCardSlider = ({
   productContainers,
   nxtButtons,
 }: IProductCardSlider) => {
+
+  let move = 300
   //
   //card Sliders forward and backward button call backFunction
-  const handlePreButton = (container: HTMLDivElement) => () => {
-    container.scrollBy({ left: -300, behavior: "smooth" });
+  const handleCardSliderMovement = (container: HTMLDivElement,move: number) => () => {
+    container.scrollBy({ left: move, behavior: "smooth" });
   };
 
-  const handleNxtButton = (container: HTMLDivElement) => () => {
-    container.scrollBy({ left: 300, behavior: "smooth" });
-  };
 
   //
   // Add event listeners to all pre_btn and nxt_btn elements
   for (let i = 0; i < preButtons.length; i++) {
     preButtons[i].addEventListener(
       "click",
-      handlePreButton(productContainers[i])
+      handleCardSliderMovement(productContainers[i],-move)
     );
     nxtButtons[i].addEventListener(
       "click",
-      handleNxtButton(productContainers[i])
+      handleCardSliderMovement(productContainers[i],move)
     );
   }
 };
