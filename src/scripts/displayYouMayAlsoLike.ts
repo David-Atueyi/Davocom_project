@@ -1,9 +1,20 @@
-import { ISearchedProduct } from "./interface";
+import { handleGetProductFromApi } from "./gettingAllProductFromApi";
+import { IProduct } from "./interface";
 
-export const displayYouMayAlsoLike: Function = (
-  products: ISearchedProduct[],
-  youMayAlsoLikeContainerElem: { innerHTML: string }
-) => {
+const youMayAlsoLikeContainerElem =
+  document.querySelector<HTMLDivElement>(".you_may_also_like");
+
+// 
+  // getting product from API
+let products: IProduct[];
+
+const fetchAndHandleAllProducts = async () => {
+  products = await handleGetProductFromApi();
+}
+  
+fetchAndHandleAllProducts()
+
+export const displayYouMayAlsoLike: Function = () => {
   let showYouMayAlsoLikeProduct: string = "";
 
   products.slice(15, 30).forEach((product) => {

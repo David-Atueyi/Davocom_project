@@ -1,5 +1,6 @@
 import { displayMostPopular } from "../displayMostPopular";
 import { displayYouMayAlsoLike } from "../displayYouMayAlsoLike";
+import { handleGetProductFromApi } from "../gettingAllProductFromApi";
 import { ProductDetailsHtmlElements } from "./productDetailsDomElements";
 
 // getting the html elements to work with
@@ -10,30 +11,28 @@ const {
   controlsContainerElem,
 } = ProductDetailsHtmlElements;
 
-
-export const showOtherProduct = (products) => {
+export const showOtherProduct = () => {
   //
   // getting product from API
-  const handleGetProductFromApi: Function = async () => {
+  const fetchAndHandleAllProducts = async () => {
     loader.forEach((loader) =>
       loader.setAttribute("class", "loader_second_style")
     );
-    try {
-      const res = await fetch(`https://dummyjson.com/products`);
-      const data = await res.json();
-      products = data.products;
+    //
+    const products = await handleGetProductFromApi();
+    if (products) {
       //
       controlsContainerElem.forEach((controlContainer) =>
         controlContainer.setAttribute("class", "slide_control_second_style")
       );
+      //
       loader.forEach((loader) => loader.setAttribute("class", "loader"));
       //
-      displayMostPopular(products, mostPopularContainerElem);
-      displayYouMayAlsoLike(products, youMayAlsoLikeContainerElem);
-    } catch (error) {
-      console.log(error);
+      displayMostPopular();
+      displayYouMayAlsoLike();
     }
   };
 
-  handleGetProductFromApi();
+  // Call the function
+  fetchAndHandleAllProducts();
 };

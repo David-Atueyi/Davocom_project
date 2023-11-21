@@ -1,51 +1,40 @@
 import { displaySearchedProducts } from "./displaySearchFunction";
-import { ISearchedProduct } from "./interface";
+import { searchBarInputElem } from "../scripts/home/homePageDomElement";
+import { handleGetProductFromApi } from "./gettingAllProductFromApi";
 
-interface ISearch {
-  products: ISearchedProduct[];
-  searchBarContainer: {
-    addEventListener: (arg0: string, arg1: EventListener) => void;
-  };
-  searchBarInputElem: {
-    addEventListener: (arg0: string, arg1: EventListener) => void;
-  };
-  searchSectionContainer: {
-    setAttribute: (arg0: string, arg1: string) => void;
-  };
-  closeSearchSection: {
-    addEventListener: (arg0: string, arg1: EventListener) => void;
-  };
-  searchedItemsContainerElem: HTMLDivElement;
-}
+// getting the html elements to work with
+const searchBarContainer = document.querySelector<HTMLFormElement>(
+  ".search_bar_container"
+);
 
-export const searchProductAndFetchApi = ({
-  products,
-  searchBarContainer,
-  searchBarInputElem,
-  searchSectionContainer,
-  closeSearchSection,
-  searchedItemsContainerElem,
-}: ISearch) => {
-  let getSearchInput: string;
+const searchSectionContainer = document.querySelector<HTMLDivElement>(
+  ".searched_container"
+);
+const closeSearchSection = document.querySelector<HTMLElement>(
+  ".close_search_section"
+);
+
+export const searchProductAndFetchApi = () => {
+  let searchInputValue: string;
 
   //
   // handle search bar
-  const handleSearchBar: EventListener = (e: Event): void => {
+  const handleSearchProduct: EventListener = (e: Event): void => {
     e.preventDefault();
-    getSearchInput
+    searchInputValue
       ? searchSectionContainer.setAttribute(
           "class",
           "searched_container_second_style"
         )
       : searchSectionContainer.setAttribute("class", "searched_container");
-    handleGetProductFromApi();
+    fetchAndHandleAllProducts();
   };
 
   //
   // handle getting of user input
-  const handleSearchBarInput: EventListener = (e: Event): void => {
+  const getSearchInputValue: EventListener = (e: Event): void => {
     const searchInput = e.target as HTMLInputElement;
-    getSearchInput = searchInput.value.toLowerCase();
+    searchInputValue = searchInput.value.trim().toLowerCase();
   };
 
   //
@@ -54,25 +43,16 @@ export const searchProductAndFetchApi = ({
     searchSectionContainer.setAttribute("class", "closing_search_section");
   };
 
-  //
   // getting product from API
-  const handleGetProductFromApi: Function = async () => {
-    try {
-      const res = await fetch(`https://dummyjson.com/products`);
-      const data = await res.json();
-      products = data.products;
-      //
-      displaySearchedProducts(
-        products,
-        getSearchInput,
-        searchedItemsContainerElem
-      );
-    } catch (error) {
-      console.log(error);
+  const fetchAndHandleAllProducts = async () => {
+    const products = await handleGetProductFromApi();
+    if (products) {
+      displaySearchedProducts(products, searchInputValue);
     }
   };
+
   // adding event listeners
-  searchBarContainer.addEventListener("submit", handleSearchBar);
-  searchBarInputElem.addEventListener("change", handleSearchBarInput);
+  searchBarContainer.addEventListener("submit", handleSearchProduct);
+  searchBarInputElem.addEventListener("change", getSearchInputValue);
   closeSearchSection.addEventListener("click", handleClosingSearchSection);
 };

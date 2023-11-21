@@ -2,15 +2,13 @@ import "../styles/style.css";
 import "../assets/images/davocom_favicon.png";
 import "../assets/images/davocom_logo.png";
 import "font-awesome/css/font-awesome.css";
-import { ICartproduct, ISearchedProduct } from "./interface";
+import { IProduct } from "./interface";
 import { userAccount } from "./displayingUserAccountInformation";
 import { handleLogOut } from "./handleLogOut";
-import { displayMostPopular } from "./displayMostPopular";
 import "./handleRedirectingIfUserNotLoggedIn";
 import { handleCartIcon } from "./cartIcon";
 import { productCardSlider } from "./slideCardSlider";
 import { ProductDetailsHtmlElements } from "./productDetails/productDetailsDomElements";
-import { displayYouMayAlsoLike } from "./displayYouMayAlsoLike";
 import { searchProductAndFetchApi } from "./searchAndFetchFromApi";
 import { productImageSlide } from "./productDetails/productImageSlide";
 import { displayAProduct } from "./productDetails/displayAProduct";
@@ -18,46 +16,27 @@ import { showOtherProduct } from "./productDetails/showOtherProducts";
 //
 // getting the html elements to work with
 const {
-  searchBarContainer,
-  searchBarInputElem,
-  searchSectionContainer,
-  closeSearchSection,
-  searchedItemsContainerElem,
   noUserAccount,
   userHasAccount,
   userAccountSignIn,
   userAccountSignUp,
   userAccountLogOut,
-  cartTotal,
   scrollContainer,
   productColorElem,
-  preButtons,
-  nxtButtons,
-  productContainers,
 } = ProductDetailsHtmlElements;
 
 //
-// global variable
-let products: ISearchedProduct[];
-//
-handleCartIcon({ cartTotal });
+handleCartIcon();
 //
 export let selectedColor: string;
 // export let getUserQuantityInput: string = productQuantityElem.value;
 const getProductIdFromLocalStorage = JSON.parse(
   localStorage.getItem("productId")
 );
-let aProduct: ISearchedProduct;
+let aProduct: IProduct;
 
 // handle search bar
-searchProductAndFetchApi({
-  products,
-  searchBarContainer,
-  searchBarInputElem,
-  searchSectionContainer,
-  closeSearchSection,
-  searchedItemsContainerElem,
-});
+searchProductAndFetchApi();
 //
 // getting product from API
 const handleGetAProductFromApi: Function = async () => {
@@ -70,7 +49,7 @@ const handleGetAProductFromApi: Function = async () => {
     //
     aProduct = data;
     //
-    displayAProduct(aProduct, getProductIdFromLocalStorage);
+    displayAProduct(aProduct);
   } catch (error) {
     console.log(error);
   }
@@ -78,8 +57,8 @@ const handleGetAProductFromApi: Function = async () => {
 
 handleGetAProductFromApi();
 
-// 
-showOtherProduct(products);
+//
+showOtherProduct();
 
 //
 // if the user have an account or not have an account
@@ -111,7 +90,7 @@ const handleProductColor: EventListener = (event) => {
 
 //
 //card Sliders forward and backward button call backFunction
-productCardSlider({ preButtons, productContainers, nxtButtons });
+productCardSlider();
 
 //
 // adding event listeners

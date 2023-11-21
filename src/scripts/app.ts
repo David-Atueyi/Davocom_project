@@ -5,83 +5,51 @@ import "./handleRedirectingIfUserNotLoggedIn";
 import { handleCartIcon } from "./cartIcon";
 import { productCardSlider } from "./slideCardSlider";
 import { showProducts } from "./home/homePageTemplateLiteral";
-import { ISearchedProduct } from "./interface";
 import { searchProductAndFetchApi } from "./searchAndFetchFromApi";
 //
 // homePageImports
 const { userAccount, handleLogOut } = homePageImports;
 
+import { handleGetProductFromApi } from "../scripts/gettingAllProductFromApi";
+
 //
 // getting the html elements to work with
 const {
-  searchBarContainer,
-  searchBarInputElem,
-  searchSectionContainer,
-  closeSearchSection,
-  searchedItemsContainerElem,
   noUserAccount,
   userHasAccount,
   userAccountSignIn,
   userAccountSignUp,
   userAccountLogOut,
-  cartTotal,
-  todayDealsContainerElem,
-  flashSalesContainerElem,
-  bestSellersContainerElem,
-  phonesAndLaptopsContainerElem,
-  cosmeticContainerElem,
   loader,
   controlsContainerElem,
-  preButtons,
-  nxtButtons,
-  productContainers,
 } = homePageDomElems;
 
 //
-// global variable
-let products: ISearchedProduct[];
-
-//
 // handle search bar
-searchProductAndFetchApi({
-  products,
-  searchBarContainer,
-  searchBarInputElem,
-  searchSectionContainer,
-  closeSearchSection,
-  searchedItemsContainerElem,
-});
+searchProductAndFetchApi();
 
 //
 // getting product from API
-const handleGetProductFromApi: Function = async () => {
+const fetchAndHandleAllProducts = async () => {
   loader.forEach((loader) =>
     loader.setAttribute("class", "loader_second_style")
   );
-  try {
-    const res = await fetch(`https://dummyjson.com/products`);
-    const data = await res.json();
-    products = data.products;
+  // 
+  const products = await handleGetProductFromApi();
+  if (products) {
     //
     controlsContainerElem.forEach((controlContainer) =>
       controlContainer.setAttribute("class", "slide_control_second_style")
     );
+    //
     loader.forEach((loader) => loader.setAttribute("class", "loader"));
     //
-    showProducts({
-      products,
-      todayDealsContainerElem,
-      flashSalesContainerElem,
-      bestSellersContainerElem,
-      phonesAndLaptopsContainerElem,
-      cosmeticContainerElem,
-    });
-  } catch (error) {
-    console.log(error);
+    showProducts();
   }
 };
 
-handleGetProductFromApi();
+// Call the function
+fetchAndHandleAllProducts();
 
 //
 // if the user have an account or not have an account
@@ -94,7 +62,7 @@ userAccount(
 );
 
 // cart icon total
-handleCartIcon({ cartTotal });
+handleCartIcon();
 
 // home page main
 // hero image
@@ -103,7 +71,7 @@ heroImageSliderFunction();
 
 //
 //card Sliders forward and backward button call backFunction
-productCardSlider({ preButtons, productContainers, nxtButtons });
+productCardSlider();
 
 //
 // adding event listeners

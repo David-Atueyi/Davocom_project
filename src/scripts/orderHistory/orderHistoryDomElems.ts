@@ -1,21 +1,6 @@
 //
 // getting the html elements to work with
-const searchBarContainer = document.querySelector<HTMLFormElement>(
-  ".search_bar_container"
-);
 
-const searchBarInputElem = document.querySelector<HTMLInputElement>("#search");
-
-const searchSectionContainer = document.querySelector<HTMLDivElement>(
-  ".searched_container"
-);
-const closeSearchSection = document.querySelector<HTMLElement>(
-  ".close_search_section"
-);
-
-const searchedItemsContainerElem =
-  document.querySelector<HTMLDivElement>(".search_items");
-//
 const noUserAccount = document.querySelector<HTMLParagraphElement>(
   ".do_not_have_account"
 );
@@ -33,7 +18,6 @@ const userAccountLogOut = document.querySelector<HTMLParagraphElement>(
   ".user_account_log_out"
 );
 
-const cartTotal = document.querySelector<HTMLParagraphElement>(".cart_total");
 //
 // js for the main
 const orderHistoryItemContainerElem = document.querySelector<HTMLDivElement>(
@@ -53,43 +37,24 @@ const closeClearHistoryWarning = document.querySelector<HTMLElement>(
 const clearHistoryWarningMessageBtnElement =
   document.querySelector<HTMLDivElement>(".warning_message_btn");
 //
-const mostPopularContainerElem =
-  document.querySelector<HTMLDivElement>(".most_popular");
-//
-const youMayAlsoLikeContainerElem =
-  document.querySelector<HTMLDivElement>(".you_may_also_like");
-//
 // card sliders
 const loader = document.querySelectorAll<HTMLDivElement>(".loader");
 const controlsContainerElem =
   document.querySelectorAll<HTMLDivElement>(".slide_control");
-const preButtons = document.querySelectorAll<HTMLElement>(".pre_btn");
-const nxtButtons = document.querySelectorAll<HTMLElement>(".nxt_btn");
-const productContainers =
-  document.querySelectorAll<HTMLDivElement>(".product_container");
+
 
 export const orderHistoryHtmlElems = {
-  searchBarContainer,
-  searchBarInputElem,
-  searchSectionContainer,
-  closeSearchSection,
-  searchedItemsContainerElem,
   noUserAccount,
   userHasAccount,
   userAccountSignIn,
   userAccountSignUp,
   userAccountLogOut,
-  cartTotal,
   orderHistoryItemContainerElem,
   clearHistoryBtnElement,
   clearHistoryWarningTemplateElement,
   closeClearHistoryWarning,
   clearHistoryWarningMessageBtnElement,
-  mostPopularContainerElem,
-  youMayAlsoLikeContainerElem,
   loader,
   controlsContainerElem,
-  preButtons,
-  nxtButtons,
-  productContainers,
+
 };

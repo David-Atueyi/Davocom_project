@@ -1,11 +1,12 @@
 //
-
 import { ICartproduct } from "../interface";
-
+// 
+const checkOutProductContainerElem =
+  document.querySelector<HTMLDivElement>(".checkout_orders");
+// 
 // template literals
 export const showCheckOutProducts = (
   checkOutProduct: ICartproduct[],
-  checkOutProductContainerElem: { innerHTML: string }
 ) => {
   const displayCheckOutProduct: Function = () => {
     let showCheckOutProduct = "";

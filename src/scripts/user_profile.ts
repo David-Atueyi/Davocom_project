@@ -7,7 +7,6 @@ import {
   userInfo,
   userPhoneAndAddress,
 } from "./gettingUserFromLocalStorage";
-import { ISearchedProduct } from "./interface";
 import { userAccount } from "./displayingUserAccountInformation";
 import { handleLogOut } from "./handleLogOut";
 import "./handleRedirectingIfUserNotLoggedIn";
@@ -17,17 +16,11 @@ import { userProfileDomElems } from "./userProfile/userProfileDomElements";
 //
 // getting the html elements to work with
 const {
-  searchBarContainer,
-  searchBarInputElem,
-  searchSectionContainer,
-  closeSearchSection,
-  searchedItemsContainerElem,
   noUserAccount,
   userHasAccount,
   userAccountSignIn,
   userAccountSignUp,
   userAccountLogOut,
-  cartTotal,
   showUserNameElem,
   showUserFullNameElem,
   showUserEmailElem,
@@ -36,19 +29,8 @@ const {
 } = userProfileDomElems;
 
 //
-// global variable
-let products: ISearchedProduct[];
-
-//
 // handle search bar
-searchProductAndFetchApi({
-  products,
-  searchBarContainer,
-  searchBarInputElem,
-  searchSectionContainer,
-  closeSearchSection,
-  searchedItemsContainerElem,
-});
+searchProductAndFetchApi();
 
 //
 // if the user have an account or not have an account
@@ -72,7 +54,7 @@ const displayUserAccountInformation: Function = () => {
 };
 
 displayUserAccountInformation();
-// 
+//
 userAccount(
   userHasAccount,
   noUserAccount,
@@ -82,10 +64,8 @@ userAccount(
 );
 
 // cart icon total
-handleCartIcon({ cartTotal });
+handleCartIcon();
 
 //
 // adding event listeners
 userAccountLogOut.addEventListener("click", handleLogOut);
-
-

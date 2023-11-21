@@ -1,4 +1,4 @@
-import { ICartproduct, ISearchedProduct } from "../interface";
+import { ICartproduct, IProduct } from "../interface";
 import { selectedColor } from "../product_details";
 import { ProductDetailsHtmlElements } from "./productDetailsDomElements";
 
@@ -16,12 +16,21 @@ const {
   cartButtonElem,
 } = ProductDetailsHtmlElements;
 
+// 
 let cartProduct: ICartproduct[] =
   JSON.parse(localStorage.getItem("cartProduct")) || [];
 let checkOutProduct: ICartproduct[] = [];
 let getUserQuantityInput: string = productQuantityElem.value;
+const getProductIdFromLocalStorage = JSON.parse(
+  localStorage.getItem("productId")
+);
 
-export const displayAProduct = (aProduct: ISearchedProduct, getProductIdFromLocalStorage:string) => {
+// 
+
+
+export const displayAProduct = (
+  aProduct: IProduct,
+) => {
   //
   let showProductImage: string = "";
   let showProductNameAndPrice: string = "";
@@ -75,7 +84,9 @@ export const displayAProduct = (aProduct: ISearchedProduct, getProductIdFromLoca
         productPrice: aProduct.price,
         productColor: selectedColor,
         productStock: aProduct.stock,
-        quantityOfProduct: Number(getUserQuantityInput = productQuantityElem.value),
+        quantityOfProduct: Number(
+          (getUserQuantityInput = productQuantityElem.value)
+        ),
         fromCart: true,
       };
 
@@ -112,7 +123,9 @@ export const displayAProduct = (aProduct: ISearchedProduct, getProductIdFromLoca
         productPrice: aProduct.price,
         productColor: selectedColor,
         productStock: aProduct.stock,
-        quantityOfProduct: Number(getUserQuantityInput = productQuantityElem.value),
+        quantityOfProduct: Number(
+          (getUserQuantityInput = productQuantityElem.value)
+        ),
         fromCart: false,
       };
 

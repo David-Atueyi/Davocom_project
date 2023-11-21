@@ -12,7 +12,7 @@ export interface IUserPhoneAndAddress {
 }
 //
 // interface for searchedProduct
-export interface ISearchedProduct {
+export interface IProduct {
   id: number;
   title: string;
   description: string;

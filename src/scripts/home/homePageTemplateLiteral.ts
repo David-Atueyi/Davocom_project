@@ -1,22 +1,30 @@
-import { ISearchedProduct } from "../interface";
+import { handleGetProductFromApi } from "../gettingAllProductFromApi";
+import { IProduct } from "../interface";
 
-interface IShowProducts {
-  products: ISearchedProduct[];
-  todayDealsContainerElem: { innerHTML: string };
-  flashSalesContainerElem: { innerHTML: string };
-  bestSellersContainerElem: { innerHTML: string };
-  phonesAndLaptopsContainerElem: { innerHTML: string };
-  cosmeticContainerElem: { innerHTML: string };
-}
+//
+const todayDealsContainerElem =
+  document.querySelector<HTMLDivElement>(".today_deals");
+//
+const flashSalesContainerElem =
+  document.querySelector<HTMLDivElement>(".flash_sales");
+const bestSellersContainerElem =
+  document.querySelector<HTMLDivElement>(".best_sellers");
+const phonesAndLaptopsContainerElem =
+  document.querySelector<HTMLDivElement>(".phones_laptops");
+const cosmeticContainerElem =
+  document.querySelector<HTMLDivElement>(".cosmetic");
 
-export const showProducts = ({
-  products,
-  todayDealsContainerElem,
-  flashSalesContainerElem,
-  bestSellersContainerElem,
-  phonesAndLaptopsContainerElem,
-  cosmeticContainerElem,
-}: IShowProducts) => {
+// 
+let products: IProduct[];
+
+const fetchAndHandleAllProducts = async () => {
+   products = await handleGetProductFromApi();
+};
+// 
+fetchAndHandleAllProducts();
+
+// 
+export const showProducts = () => {
   // template literals
   //
   const displayTodayDeals: Function = () => {
@@ -264,7 +272,6 @@ export const showProducts = ({
     });
   };
   //
-
 
   //
   displayTodayDeals();

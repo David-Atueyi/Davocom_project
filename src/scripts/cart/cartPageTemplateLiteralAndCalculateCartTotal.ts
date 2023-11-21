@@ -1,13 +1,17 @@
 import { cartProduct } from "../globalVariable";
 import { cartPageHtmlElems } from "./cartPageHtmlElements";
+// 
+const cartSubTotal = document.querySelector<HTMLParagraphElement>(".price");
+// 
+const checkoutBtnSubtotal = document.querySelector<HTMLParagraphElement>(
+  ".checkout_btn_subtotal"
+);
+
 
 const { cartTotal, numberOfProductInCart, cartProductsContainerElem } =
   cartPageHtmlElems;
 
-export const displayCartProductsAndCalculateCartTotal = (
-  cartSubTotal: { innerText: string },
-  checkoutBtnSubtotal: { innerText: string }
-) => {
+export const displayCartProductsAndCalculateCartTotal = () => {
   const displayCartProducts: Function = () => {
     let showCartProducts: string = "";
 

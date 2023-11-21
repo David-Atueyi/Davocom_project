@@ -1,20 +1,5 @@
 //
 // getting the html elements to work with
-const searchBarContainer = document.querySelector<HTMLFormElement>(
-  ".search_bar_container"
-);
-
-const searchBarInputElem = document.querySelector<HTMLInputElement>("#search");
-
-const searchSectionContainer = document.querySelector<HTMLDivElement>(
-  ".searched_container"
-);
-const closeSearchSection = document.querySelector<HTMLElement>(
-  ".close_search_section"
-);
-
-const searchedItemsContainerElem =
-  document.querySelector<HTMLDivElement>(".search_items");
 //
 const noUserAccount = document.querySelector<HTMLParagraphElement>(
   ".do_not_have_account"
@@ -41,9 +26,7 @@ const lnameInputElem = document.querySelector<HTMLInputElement>("#lname");
 const emailInputElem = document.querySelector<HTMLInputElement>("#email");
 const phoneInputElem = document.querySelector<HTMLInputElement>("#phone");
 const addressInputElem = document.querySelector<HTMLInputElement>("#address");
-//
-const checkOutProductContainerElem =
-  document.querySelector<HTMLDivElement>(".checkout_orders");
+
 //
 const checkoutSubTotal =
   document.querySelector<HTMLParagraphElement>(".showSubTotalPrice");
@@ -62,11 +45,6 @@ const paymentSuccessful = document.querySelector<HTMLDivElement>(
 );
 
 export const checkOutHtmlElems = {
-  searchBarContainer,
-  searchBarInputElem,
-  searchSectionContainer,
-  closeSearchSection,
-  searchedItemsContainerElem,
   noUserAccount,
   userHasAccount,
   userAccountSignIn,
@@ -78,7 +56,6 @@ export const checkOutHtmlElems = {
   emailInputElem,
   phoneInputElem,
   addressInputElem,
-  checkOutProductContainerElem,
   checkoutSubTotal,
   shippingFee,
   checkoutTotal,

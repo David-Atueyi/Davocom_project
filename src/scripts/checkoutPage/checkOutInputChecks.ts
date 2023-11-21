@@ -1,25 +1,25 @@
 interface ICheckOutInputChecks {
   fnameInputElem: {
     value: string;
-    setAttribute: (arg0: string, arg1: string) => void;
+    setAttribute: (typeOfAttribute: string, nameOfAttribute: string) => void;
   };
   lnameInputElem: {
     value: string;
-    setAttribute: (arg0: string, arg1: string) => void;
+    setAttribute: (typeOfAttribute: string, nameOfAttribute: string) => void;
   };
-  regex: { test: (arg0: string) => any };
+  regex: { test: (elementToBeTested: string) => any };
   emailInputElem: {
     value: string;
-    setAttribute: (arg0: string, arg1: string) => void;
+    setAttribute: (typeOfAttribute: string, nameOfAttribute: string) => void;
   };
-  phoneRegex: { test: (arg0: string) => any };
+  phoneRegex: { test: (elementToBeTested: string) => any };
   phoneInputElem: {
     value: string;
-    setAttribute: (arg0: string, arg1: string) => void;
+    setAttribute: (typeOfAttribute: string, nameOfAttribute: string) => void;
   };
   addressInputElem: {
     value: string;
-    setAttribute: (arg0: string, arg1: string) => void;
+    setAttribute: (typeOfAttribute: string, nameOfAttribute: string) => void;
   };
 }
 

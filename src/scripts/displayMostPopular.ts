@@ -1,9 +1,22 @@
-import { ISearchedProduct } from "./interface";
+import { handleGetProductFromApi } from "./gettingAllProductFromApi";
+import { IProduct } from "./interface";
 
 //
+const mostPopularContainerElem =
+  document.querySelector<HTMLDivElement>(".most_popular");
+//
+
+
+// getting product from API
+let products: IProduct[];
+
+const fetchAndHandleAllProducts = async () => {
+  products = await handleGetProductFromApi();
+}
+  
+fetchAndHandleAllProducts()
+// 
 export const displayMostPopular: Function = (
-  products: ISearchedProduct[],
-  mostPopularContainerElem: { innerHTML: string }
 ) => {
   let showMostPopularProduct: string = "";
 

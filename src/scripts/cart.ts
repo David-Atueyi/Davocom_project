@@ -6,80 +6,52 @@ import { userAccount } from "./displayingUserAccountInformation";
 import { handleLogOut } from "./handleLogOut";
 import { cartPageHtmlElems } from "./cart/cartPageHtmlElements";
 import "./handleRedirectingIfUserNotLoggedIn";
-import { cartProduct, checkOutProduct} from "./globalVariable";
+import { cartProduct, checkOutProduct } from "./globalVariable";
 import { handleCartIcon } from "./cartIcon";
 import { displayCartProductsAndCalculateCartTotal } from "./cart/cartPageTemplateLiteralAndCalculateCartTotal";
 import { productCardSlider } from "./slideCardSlider";
 import { displayMostPopular } from "./displayMostPopular";
-import { ISearchedProduct } from "./interface";
 import { searchProductAndFetchApi } from "./searchAndFetchFromApi";
+import { handleGetProductFromApi } from "./gettingAllProductFromApi";
 //
 // getting the html elements to work with
 const {
-  searchBarContainer,
-  searchBarInputElem,
-  searchSectionContainer,
-  closeSearchSection,
-  searchedItemsContainerElem,
   noUserAccount,
   userHasAccount,
   userAccountSignIn,
   userAccountSignUp,
   userAccountLogOut,
-  cartTotal,
-  numberOfProductInCart,
-  cartSubTotal,
   checkoutBtn,
-  checkoutBtnSubtotal,
-  mostPopularContainerElem,
   loader,
   controlsContainerElem,
-  preButtons,
-  nxtButtons,
-  productContainers,
 } = cartPageHtmlElems;
-
-// 
-// global variable
-let products: ISearchedProduct[];
 
 //
 //template literal and calculation of the cart total
-displayCartProductsAndCalculateCartTotal(cartSubTotal, checkoutBtnSubtotal);
+displayCartProductsAndCalculateCartTotal();
 
 //
 // handle search bar
-searchProductAndFetchApi({
-  products,
-  searchBarContainer,
-  searchBarInputElem,
-  searchSectionContainer,
-  closeSearchSection,
-  searchedItemsContainerElem,
-});
-  //
-  // getting product from API
-  const handleGetProductFromApi: Function = async () => {
-    loader.forEach((loader) =>
-      loader.setAttribute("class", "loader_second_style")
-    );
-    try {
-      const res = await fetch(`https://dummyjson.com/products`);
-      const data = await res.json();
-      products = data.products;
-      //
-      controlsContainerElem.forEach((controlContainer) =>
-        controlContainer.setAttribute("class", "slide_control_second_style")
-      );
-      loader.forEach((loader) => loader.setAttribute("class", "loader"));
-      //
-      displayMostPopular(products, mostPopularContainerElem);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+searchProductAndFetchApi();
 
-  handleGetProductFromApi();
+// getting product from API
+const fetchAndHandleAllProducts = async () => {
+  const products = await handleGetProductFromApi();
+  //
+  if (products) {
+    //
+    controlsContainerElem.forEach((controlContainer) =>
+      controlContainer.setAttribute("class", "slide_control_second_style")
+    );
+    //
+    loader.forEach((loader) => loader.setAttribute("class", "loader"));
+    //
+    displayMostPopular();
+  }
+};
+
+// Call the function
+fetchAndHandleAllProducts();
 //
 // if the user have an account or not have an account
 userAccount(
@@ -92,8 +64,9 @@ userAccount(
 
 //
 // cart page main
+//
 // cart icon total
-handleCartIcon({ cartTotal, numberOfProductInCart });
+handleCartIcon();
 
 //
 // checkout button callback function
@@ -111,10 +84,9 @@ const handleCheckOutButton: EventListener = (event: Event): void => {
 
 //
 //card Sliders forward and backward button call backFunction
-productCardSlider({preButtons, productContainers, nxtButtons});
+productCardSlider();
 
 //
 // adding event listeners
 userAccountLogOut.addEventListener("click", handleLogOut);
 checkoutBtn.addEventListener("click", handleCheckOutButton);
-

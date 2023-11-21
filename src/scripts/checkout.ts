@@ -20,17 +20,11 @@ const {
   showCheckOutProducts,
   checkOutProduct,
   orderHistoryProducts,
-  products,
 } = checkOutImports;
 
 //
 // getting the html elements to work with
 const {
-  searchBarContainer,
-  searchBarInputElem,
-  searchSectionContainer,
-  closeSearchSection,
-  searchedItemsContainerElem,
   noUserAccount,
   userHasAccount,
   userAccountSignIn,
@@ -42,7 +36,6 @@ const {
   emailInputElem,
   phoneInputElem,
   addressInputElem,
-  checkOutProductContainerElem,
   placeOrderBtnElem,
   paymentSuccessful,
 } = checkOutHtmlElems;
@@ -54,7 +47,7 @@ let phoneRegex: RegExp = /^\+?\d[\d -()]{8,}$/;
 
 //
 // template literals
-showCheckOutProducts(checkOutProduct, checkOutProductContainerElem);
+showCheckOutProducts(checkOutProduct);
 
 //
 // handle getting of user input
@@ -63,14 +56,7 @@ handleUserCheckOutInputs();
 //
 // getting product from API and search for product
 // handle search bar
-searchProductAndFetchApi({
-  products,
-  searchBarContainer,
-  searchBarInputElem,
-  searchSectionContainer,
-  closeSearchSection,
-  searchedItemsContainerElem,
-});
+searchProductAndFetchApi();
 
 //
 // if the user have an account or not have an account
@@ -83,7 +69,7 @@ userAccount(
 );
 
 // cart icon total
-handleCartIcon({ cartTotal });
+handleCartIcon();
 
 // checkout main
 // total price of product
