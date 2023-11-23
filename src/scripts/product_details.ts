@@ -16,11 +16,6 @@ import { showOtherProduct } from "./productDetails/showOtherProducts";
 //
 // getting the html elements to work with
 const {
-  noUserAccount,
-  userHasAccount,
-  userAccountSignIn,
-  userAccountSignUp,
-  userAccountLogOut,
   scrollContainer,
   productColorElem,
 } = ProductDetailsHtmlElements;
@@ -30,9 +25,7 @@ handleCartIcon();
 //
 export let selectedColor: string;
 // export let getUserQuantityInput: string = productQuantityElem.value;
-const getProductIdFromLocalStorage = JSON.parse(
-  localStorage.getItem("productId")
-);
+const singleProductId = JSON.parse(localStorage.getItem("productId"));
 let aProduct: IProduct;
 
 // handle search bar
@@ -42,7 +35,7 @@ searchProductAndFetchApi();
 const handleGetAProductFromApi: Function = async () => {
   try {
     const res = await fetch(
-      `https://dummyjson.com/products/${getProductIdFromLocalStorage}`
+      `https://dummyjson.com/products/${singleProductId}`
     );
     //
     const data = await res.json();
@@ -62,13 +55,7 @@ showOtherProduct();
 
 //
 // if the user have an account or not have an account
-userAccount(
-  userHasAccount,
-  noUserAccount,
-  userAccountSignUp,
-  userAccountSignIn,
-  userAccountLogOut
-);
+userAccount();
 
 //
 // callback function for product image slider
@@ -94,7 +81,6 @@ productCardSlider();
 
 //
 // adding event listeners
-userAccountLogOut.addEventListener("click", handleLogOut);
 productColorElem.forEach((color) => {
   color.addEventListener("click", handleProductColor);
 });

@@ -35,14 +35,4 @@ import "../../assets/images/JForce.png";
 import "../../assets/images/advert.jpg";
 import "../../assets/images/free-delivery_218x184.png";
 import "font-awesome/css/font-awesome.css";
-import { storedIsLoggedIn } from "../gettingUserFromLocalStorage";
-import { displaySearchedProducts } from "../displaySearchFunction";
-import { userAccount } from "../displayingUserAccountInformation";
-import { handleLogOut } from "../handleLogOut";
 
-export const homePageImports = {
-  storedIsLoggedIn,
-  displaySearchedProducts,
-  userAccount,
-  handleLogOut,
-};

@@ -9,7 +9,7 @@ interface IInputChecks {
     setAttribute: (arg0: string, arg1: string) => void;
   };
   lnameErrorMegElem: { setAttribute: (arg0: string, arg1: string) => void };
-  regex: { test: (arg0: string) => any };
+  emailRegex: { test: (arg0: string) => any };
   emailInputElem: {
     value: string;
     setAttribute: (arg0: string, arg1: string) => void;
@@ -29,7 +29,7 @@ export const handelInputChecks = ({
   fnameErrorMegElem,
   lnameInputElem,
   lnameErrorMegElem,
-  regex,
+  emailRegex,
   emailInputElem,
   emailErrorMegElem,
   paWordRegex,
@@ -59,7 +59,7 @@ export const handelInputChecks = ({
   };
   //
   const emailChecks: Function = () => {
-    if (!regex.test(emailInputElem.value)) {
+    if (!emailRegex.test(emailInputElem.value)) {
       emailErrorMegElem.setAttribute("class", "show_error");
       emailInputElem.setAttribute("class", "error_border");
     } else {

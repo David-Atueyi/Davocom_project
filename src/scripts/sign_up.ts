@@ -7,6 +7,7 @@ import { IUser } from "./interface";
 import { signUpDomElems } from "./signUp/signUpDomElements";
 import { handelInputChecks } from "./signUp/userInputChecks";
 import { handleShowPassword } from "./signUp/handleShowPassword";
+import { emailRegex, paWordRegex } from "./globalVariable";
 
 //
 // getting the html elements to work with
@@ -31,8 +32,7 @@ let getFnmaeInput: string;
 let getLnameInput: string;
 let getEmailInput: string;
 let getPasswordInput: string;
-let regex: RegExp = /^[a-zA-Z0-9_-]+@[a-zA-z0-9-]+\.[a-z]{2,4}$/;
-let paWordRegex: RegExp = /^[a-zA-Z0-9_-]{3,20}$/;
+// 
 let user: IUser;
 
 //
@@ -94,7 +94,7 @@ const handleSignUpBtn: EventListener = (): void => {
     fnameErrorMegElem,
     lnameInputElem,
     lnameErrorMegElem,
-    regex,
+    emailRegex,
     emailInputElem,
     emailErrorMegElem,
     paWordRegex,
@@ -106,7 +106,7 @@ const handleSignUpBtn: EventListener = (): void => {
   if (
     fnameInputElem.value &&
     lnameInputElem.value &&
-    regex.test(emailInputElem.value) &&
+    emailRegex.test(emailInputElem.value) &&
     paWordRegex.test(passwordInputElem.value)
   ) {
     //

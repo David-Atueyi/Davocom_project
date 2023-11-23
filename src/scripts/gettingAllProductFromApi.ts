@@ -1,6 +1,9 @@
 //
+
+import { IProduct } from "./interface";
+
 // getting product from API
-export const handleGetProductFromApi: Function = async () => {
+export const handleGetProductFromApi = async ():Promise<IProduct[]> => {
   try {
     const res = await fetch(`https://dummyjson.com/products`);
     const data = await res.json();
@@ -11,13 +14,3 @@ export const handleGetProductFromApi: Function = async () => {
   }
 };
 
-
-export let products;
-
-const fetchAndHandleAllProducts = async () => {
-  products = await handleGetProductFromApi();
-  
-};
-
-// Call the function
-fetchAndHandleAllProducts();

@@ -10,6 +10,7 @@ import {
   getPhoneInput,
   handleUserCheckOutInputs,
 } from "./checkoutPage/userCheckOutInputs";
+import { emailRegex, phoneRegex } from "./globalVariable";
 // checkOutImports
 const {
   userAccount,
@@ -25,11 +26,6 @@ const {
 //
 // getting the html elements to work with
 const {
-  noUserAccount,
-  userHasAccount,
-  userAccountSignIn,
-  userAccountSignUp,
-  userAccountLogOut,
   cartTotal,
   fnameInputElem,
   lnameInputElem,
@@ -39,11 +35,6 @@ const {
   placeOrderBtnElem,
   paymentSuccessful,
 } = checkOutHtmlElems;
-
-//
-// global variable
-let regex: RegExp = /^[a-zA-Z0-9_-]+@[a-zA-z0-9-]+\.[a-z]{2,4}$/;
-let phoneRegex: RegExp = /^\+?\d[\d -()]{8,}$/;
 
 //
 // template literals
@@ -60,13 +51,7 @@ searchProductAndFetchApi();
 
 //
 // if the user have an account or not have an account
-userAccount(
-  userHasAccount,
-  noUserAccount,
-  userAccountSignUp,
-  userAccountSignIn,
-  userAccountLogOut
-);
+userAccount();
 
 // cart icon total
 handleCartIcon();
@@ -81,7 +66,7 @@ const handlePlaceOrderBtn: EventListener = (): void => {
   handleCheckoutInputChecks({
     fnameInputElem,
     lnameInputElem,
-    regex,
+    emailRegex,
     emailInputElem,
     phoneRegex,
     phoneInputElem,
@@ -90,7 +75,7 @@ const handlePlaceOrderBtn: EventListener = (): void => {
   if (
     !getFnmaeInput ||
     !getLnameInput ||
-    !regex.test(getEmailInput) ||
+    !emailRegex.test(getEmailInput) ||
     !phoneRegex.test(getPhoneInput) ||
     !getAddressInput
   ) {
@@ -126,5 +111,4 @@ const handlePlaceOrderBtn: EventListener = (): void => {
 
 //
 // adding event listeners
-userAccountLogOut.addEventListener("click", handleLogOut);
 placeOrderBtnElem.addEventListener("click", handlePlaceOrderBtn);

@@ -6,22 +6,7 @@ const searchBarContainer = document.querySelector<HTMLFormElement>(
 export const searchBarInputElem = document.querySelector<HTMLInputElement>("#search");
 
 //
-const noUserAccount = document.querySelector<HTMLParagraphElement>(
-  ".do_not_have_account"
-);
-const userHasAccount =
-  document.querySelector<HTMLParagraphElement>(".have_an_account");
-const userAccountSignIn = document.querySelector<HTMLParagraphElement>(
-  ".user_account_sign_in"
-);
 
-const userAccountSignUp = document.querySelector<HTMLParagraphElement>(
-  ".user_account_sign_up"
-);
-
-const userAccountLogOut = document.querySelector<HTMLParagraphElement>(
-  ".user_account_log_out"
-);
 
 const cartTotal = document.querySelector<HTMLParagraphElement>(".cart_total");
 
@@ -43,11 +28,6 @@ const controlsContainerElem =
 export const homePageDomElems = {
   searchBarContainer,
   searchBarInputElem,
-  noUserAccount,
-  userHasAccount,
-  userAccountSignIn,
-  userAccountSignUp,
-  userAccountLogOut,
   cartTotal,
   heroImageSlider,
   prevButton,

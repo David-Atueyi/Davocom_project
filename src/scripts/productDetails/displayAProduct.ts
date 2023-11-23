@@ -16,21 +16,16 @@ const {
   cartButtonElem,
 } = ProductDetailsHtmlElements;
 
-// 
+//
 let cartProduct: ICartproduct[] =
   JSON.parse(localStorage.getItem("cartProduct")) || [];
 let checkOutProduct: ICartproduct[] = [];
 let getUserQuantityInput: string = productQuantityElem.value;
-const getProductIdFromLocalStorage = JSON.parse(
-  localStorage.getItem("productId")
-);
+const singleProductId = JSON.parse(localStorage.getItem("productId"));
 
-// 
+//
 
-
-export const displayAProduct = (
-  aProduct: IProduct,
-) => {
+export const displayAProduct = (aProduct: IProduct) => {
   //
   let showProductImage: string = "";
   let showProductNameAndPrice: string = "";
@@ -141,7 +136,7 @@ export const displayAProduct = (
   productPriceAndNameContainerElem.innerHTML = showProductNameAndPrice;
   //
   const existingProduct = cartProduct.find(
-    (product) => product.productId === Number(getProductIdFromLocalStorage)
+    (product) => product.productId === Number(singleProductId)
   );
   existingProduct
     ? (productQuantityElem.value = String(existingProduct.quantityOfProduct))

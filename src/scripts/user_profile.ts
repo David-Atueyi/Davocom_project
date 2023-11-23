@@ -8,7 +8,6 @@ import {
   userPhoneAndAddress,
 } from "./gettingUserFromLocalStorage";
 import { userAccount } from "./displayingUserAccountInformation";
-import { handleLogOut } from "./handleLogOut";
 import "./handleRedirectingIfUserNotLoggedIn";
 import { handleCartIcon } from "./cartIcon";
 import { searchProductAndFetchApi } from "./searchAndFetchFromApi";
@@ -16,11 +15,6 @@ import { userProfileDomElems } from "./userProfile/userProfileDomElements";
 //
 // getting the html elements to work with
 const {
-  noUserAccount,
-  userHasAccount,
-  userAccountSignIn,
-  userAccountSignUp,
-  userAccountLogOut,
   showUserNameElem,
   showUserFullNameElem,
   showUserEmailElem,
@@ -55,17 +49,8 @@ const displayUserAccountInformation: Function = () => {
 
 displayUserAccountInformation();
 //
-userAccount(
-  userHasAccount,
-  noUserAccount,
-  userAccountSignUp,
-  userAccountSignIn,
-  userAccountLogOut
-);
+userAccount();
 
 // cart icon total
 handleCartIcon();
 
-//
-// adding event listeners
-userAccountLogOut.addEventListener("click", handleLogOut);

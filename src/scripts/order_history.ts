@@ -3,7 +3,6 @@ import "../assets/images/davocom_favicon.png";
 import "../assets/images/davocom_logo.png";
 import "font-awesome/css/font-awesome.css";
 import { userAccount } from "./displayingUserAccountInformation";
-import { handleLogOut } from "./handleLogOut";
 import "./handleRedirectingIfUserNotLoggedIn";
 import { handleCartIcon } from "./cartIcon";
 import { productCardSlider } from "./slideCardSlider";
@@ -16,11 +15,6 @@ import { handleGetProductFromApi } from "./gettingAllProductFromApi";
 //
 // getting the html elements to work with
 const {
-  noUserAccount,
-  userHasAccount,
-  userAccountSignIn,
-  userAccountSignUp,
-  userAccountLogOut,
   clearHistoryBtnElement,
   clearHistoryWarningTemplateElement,
   closeClearHistoryWarning,
@@ -63,13 +57,7 @@ fetchAndHandleAllProducts();
 
 //
 // if the user have an account or not have an account
-userAccount(
-  userHasAccount,
-  noUserAccount,
-  userAccountSignUp,
-  userAccountSignIn,
-  userAccountLogOut
-);
+userAccount();
 
 // cart icon total
 handleCartIcon();
@@ -100,7 +88,6 @@ productCardSlider();
 
 //
 // adding event listeners
-userAccountLogOut.addEventListener("click", handleLogOut);
 clearHistoryBtnElement.addEventListener("click", handleClearHistory);
 closeClearHistoryWarning.addEventListener(
   "click",

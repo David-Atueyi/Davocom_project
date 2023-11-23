@@ -1,22 +1,6 @@
 //
 // getting the html elements to work with
-//
-const noUserAccount = document.querySelector<HTMLParagraphElement>(
-  ".do_not_have_account"
-);
-const userHasAccount =
-  document.querySelector<HTMLParagraphElement>(".have_an_account");
-const userAccountSignIn = document.querySelector<HTMLParagraphElement>(
-  ".user_account_sign_in"
-);
 
-const userAccountSignUp = document.querySelector<HTMLParagraphElement>(
-  ".user_account_sign_up"
-);
-
-const userAccountLogOut = document.querySelector<HTMLParagraphElement>(
-  ".user_account_log_out"
-);
 //
 const cartTotal = document.querySelector<HTMLParagraphElement>(".cart_total");
 //
@@ -65,11 +49,6 @@ const controlsContainerElem =
 
 
 export const ProductDetailsHtmlElements = {
-  noUserAccount,
-  userHasAccount,
-  userAccountSignIn,
-  userAccountSignUp,
-  userAccountLogOut,
   cartTotal,
   mostPopularContainerElem,
   youMayAlsoLikeContainerElem,

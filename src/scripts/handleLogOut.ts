@@ -7,3 +7,4 @@ export const handleLogOut: EventListener = (): void => {
     // 
     window.location.href = "log_in.html";
 };
+

@@ -7,7 +7,7 @@ interface ICheckOutInputChecks {
     value: string;
     setAttribute: (typeOfAttribute: string, nameOfAttribute: string) => void;
   };
-  regex: { test: (elementToBeTested: string) => any };
+  emailRegex: { test: (elementToBeTested: string) => any };
   emailInputElem: {
     value: string;
     setAttribute: (typeOfAttribute: string, nameOfAttribute: string) => void;
@@ -28,7 +28,7 @@ interface ICheckOutInputChecks {
 export const handleCheckoutInputChecks = (
 {  fnameInputElem,
   lnameInputElem,
-  regex,
+  emailRegex,
   emailInputElem,
   phoneRegex,
   phoneInputElem,
@@ -58,7 +58,7 @@ export const handleCheckoutInputChecks = (
   };
   //
   const emailChecks: Function = () => {
-    if (!regex.test(emailInputElem.value)) {
+    if (!emailRegex.test(emailInputElem.value)) {
       emailInputElem.setAttribute(
         "class",
         "checkout_contact_information_error"

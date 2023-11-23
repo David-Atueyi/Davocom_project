@@ -1,25 +1,17 @@
 import { homePageDomElems } from "./home/homePageDomElement";
-import { homePageImports } from "./home/homePageImport";
+import "./home/homePageImport";
 import { heroImageSliderFunction } from "./home/handleHeroImageSlider";
 import "./handleRedirectingIfUserNotLoggedIn";
 import { handleCartIcon } from "./cartIcon";
 import { productCardSlider } from "./slideCardSlider";
 import { showProducts } from "./home/homePageTemplateLiteral";
 import { searchProductAndFetchApi } from "./searchAndFetchFromApi";
-//
-// homePageImports
-const { userAccount, handleLogOut } = homePageImports;
-
 import { handleGetProductFromApi } from "../scripts/gettingAllProductFromApi";
+import { userAccount } from "./displayingUserAccountInformation";
 
 //
 // getting the html elements to work with
 const {
-  noUserAccount,
-  userHasAccount,
-  userAccountSignIn,
-  userAccountSignUp,
-  userAccountLogOut,
   loader,
   controlsContainerElem,
 } = homePageDomElems;
@@ -34,7 +26,7 @@ const fetchAndHandleAllProducts = async () => {
   loader.forEach((loader) =>
     loader.setAttribute("class", "loader_second_style")
   );
-  // 
+  //
   const products = await handleGetProductFromApi();
   if (products) {
     //
@@ -53,13 +45,7 @@ fetchAndHandleAllProducts();
 
 //
 // if the user have an account or not have an account
-userAccount(
-  userHasAccount,
-  noUserAccount,
-  userAccountSignUp,
-  userAccountSignIn,
-  userAccountLogOut
-);
+userAccount();
 
 // cart icon total
 handleCartIcon();
@@ -73,6 +59,4 @@ heroImageSliderFunction();
 //card Sliders forward and backward button call backFunction
 productCardSlider();
 
-//
-// adding event listeners
-userAccountLogOut.addEventListener("click", handleLogOut);
+
